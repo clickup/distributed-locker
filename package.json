@@ -1,0 +1,58 @@
+{
+  "name": "@clickup/distributed-locker",
+  "description": "Ensures that some long-running job with an unique key is not double scheduled in the cluster.",
+  "version": "2.10.292",
+  "license": "MIT",
+  "keywords": [
+    "distributed-locker",
+    "lock",
+    "cluster",
+    "locking",
+    "job scheduling",
+    "nodejs",
+    "redis",
+    "lock management",
+    "resilience",
+    "high availability",
+    "fault tolerance",
+    "worker process",
+    "event loop blocking",
+    "lock TTL",
+    "seppuku",
+    "performance",
+    "exclusive locks",
+    "redlock"
+  ],
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "lint": "eslint . --ext .ts --cache --cache-location dist/.eslintcache",
+    "test": "jest",
+    "docs": "rm -rf docs && typedoc --plugin typedoc-plugin-markdown --plugin typedoc-plugin-merge-modules && sed -i '' -E 's#packages/[^/]+/##g' $(find docs -type f -name '*.md')",
+    "clean": "rm -rf dist node_modules yarn.lock package-lock.json",
+    "copy-package-to-public-dir": "copy-package-to-public-dir.sh",
+    "deploy": "npm run build && npm test && npm publish --access=public"
+  },
+  "dependencies": {
+    "delay": "^4.4.1",
+    "ioredis": "^5.3.2",
+    "lodash": "^4.17.21",
+    "p-defer": "^3.0.0",
+    "p-timeout": "^3.2.0"
+  },
+  "devDependencies": {
+    "@types/jest": "^29.5.5",
+    "@types/lodash": "^4.14.175",
+    "ts-jest": "^29.1.1",
+    "typedoc": "^0.25.2",
+    "typedoc-plugin-markdown": "^3.16.0",
+    "typedoc-plugin-merge-modules": "^5.1.0",
+    "typescript": "^5.2.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/clickup/distributed-locker"
+  }
+}

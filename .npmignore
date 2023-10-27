@@ -1,0 +1,11 @@
+src
+__tests__
+.npmrc
+
+node_modules
+package-lock.json
+yarn.lock
+.DS_Store
+*.log
+*.tmp
+*.swp

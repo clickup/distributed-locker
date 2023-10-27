@@ -1,0 +1,16 @@
+{
+  "entryPoints": ["src/index.ts"],
+  "exclude": ["src/__tests__/**", "**/node_modules/**"],
+  "mergeModulesMergeMode": "project",
+  "sort": ["required-first"],
+  "out": "docs",
+  "logLevel": "Warn",
+  "hideGenerator": true,
+  "excludeInternal": true,
+  "excludePrivate": true,
+  "categorizeByGroup": true,
+  "hideInPageTOC": true,
+  "gitRevision": "master",
+  "sourceLinkTemplate": "https://github.com/clickup/distributed-locker/blob/master/{path}#L{line}",
+  "basePath": "."
+}
