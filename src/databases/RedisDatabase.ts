@@ -13,7 +13,7 @@ export default class RedisDatabase extends Database {
       tryCreate: (
         key: string,
         lockData: string,
-        ttlMs: number
+        ttlMs: number,
       ) => Promise<
         | [status: LockStatus.SUCCESS, lockData: string]
         | [status: LockStatus.SOMEONE_ELSE_HOLDS_LOCK, lockData: string]
@@ -22,7 +22,7 @@ export default class RedisDatabase extends Database {
         key: string,
         lockData: string,
         ttlMs: number,
-        onlyIfOwnerHashEq: string
+        onlyIfOwnerHashEq: string,
       ) => Promise<
         | [status: LockStatus.SUCCESS, lockData: string]
         | [status: LockStatus.NO_KEY, lockData: null]
@@ -30,7 +30,7 @@ export default class RedisDatabase extends Database {
       >;
       tryDelete: (
         key: string,
-        onlyIfOwnerHashEq: string
+        onlyIfOwnerHashEq: string,
       ) => Promise<
         | [status: LockStatus.SUCCESS, lockData: null]
         | [status: LockStatus.NO_KEY, lockData: null]
@@ -92,7 +92,7 @@ export default class RedisDatabase extends Database {
   async tryCreate(
     key: string,
     lockDataIn: LockData,
-    ttlMs: number
+    ttlMs: number,
   ): Promise<
     | { status: LockStatus.SUCCESS; lockData: LockData }
     | { status: LockStatus.SOMEONE_ELSE_HOLDS_LOCK; lockData: LockData }
@@ -100,7 +100,7 @@ export default class RedisDatabase extends Database {
     const [status, lockData] = await this._redis.tryCreate(
       this._lockKey(key),
       JSON.stringify(lockDataIn),
-      ttlMs
+      ttlMs,
     );
     return {
       status,
@@ -112,7 +112,7 @@ export default class RedisDatabase extends Database {
     key: string,
     lockDataIn: LockData,
     ttlMs: number,
-    onlyIfOwnerHashEq: string
+    onlyIfOwnerHashEq: string,
   ): Promise<
     | { status: LockStatus.SUCCESS; lockData: LockData }
     | { status: LockStatus.NO_KEY; lockData: null }
@@ -122,7 +122,7 @@ export default class RedisDatabase extends Database {
       this._lockKey(key),
       JSON.stringify(lockDataIn),
       ttlMs,
-      onlyIfOwnerHashEq
+      onlyIfOwnerHashEq,
     );
     return {
       status,
@@ -132,7 +132,7 @@ export default class RedisDatabase extends Database {
 
   async tryDelete(
     key: string,
-    onlyIfOwnerHashEq: string
+    onlyIfOwnerHashEq: string,
   ): Promise<
     | { status: LockStatus.SUCCESS; lockData: null }
     | { status: LockStatus.NO_KEY; lockData: null }
@@ -142,7 +142,7 @@ export default class RedisDatabase extends Database {
     try {
       const [status, lockData] = await this._redis.tryDelete(
         this._lockKey(key),
-        onlyIfOwnerHashEq
+        onlyIfOwnerHashEq,
       );
       return {
         status,
@@ -165,13 +165,13 @@ export default class RedisDatabase extends Database {
   async saveProcessData(
     processHash: string,
     processData: ProcessData,
-    ttlMs: number
+    ttlMs: number,
   ): Promise<void> {
     await this._redis.set(
       this._processKey(processHash),
       JSON.stringify(processData),
       "PX",
-      ttlMs
+      ttlMs,
     );
   }
 

@@ -6,14 +6,18 @@
 
 ### constructor
 
-• **new Heartbeater**(`_name`, `_heartbeat?`)
+• **new Heartbeater**(`_name`, `_heartbeat?`): [`Heartbeater`](Heartbeater.md)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
 | `_name` | `string` |
-| `_heartbeat` | () => `void` \| `Promise`<`void`\> |
+| `_heartbeat` | () => `void` \| `Promise`\<`void`\> |
+
+#### Returns
+
+[`Heartbeater`](Heartbeater.md)
 
 #### Defined in
 
@@ -33,7 +37,7 @@
 
 ### setDraining
 
-▸ `Static` **setDraining**(`reason`): `void`
+▸ **setDraining**(`reason`): `void`
 
 Marks the entire process as draining. Every heartbeat will throw
 immediately in this mode.
@@ -66,7 +70,7 @@ approximately (not more often) during a heartbeat.
 | Name | Type |
 | :------ | :------ |
 | `ms` | `number` |
-| `callback` | () => `void` \| `Promise`<`void`\> |
+| `callback` | () => `void` \| `Promise`\<`void`\> |
 
 #### Returns
 
@@ -80,13 +84,13 @@ ___
 
 ### heartbeat
 
-▸ **heartbeat**(): `Promise`<`void`\>
+▸ **heartbeat**(): `Promise`\<`void`\>
 
 Runs a heartbeat.
 
 #### Returns
 
-`Promise`<`void`\>
+`Promise`\<`void`\>
 
 #### Defined in
 
@@ -96,7 +100,7 @@ ___
 
 ### delay
 
-▸ **delay**(`ms`): `Promise`<`void`\>
+▸ **delay**(`ms`): `Promise`\<`void`\>
 
 A helper function to sleep & heartbeat during the sleep.
 
@@ -108,7 +112,7 @@ A helper function to sleep & heartbeat during the sleep.
 
 #### Returns
 
-`Promise`<`void`\>
+`Promise`\<`void`\>
 
 #### Defined in
 

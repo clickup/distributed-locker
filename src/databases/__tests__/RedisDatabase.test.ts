@@ -36,7 +36,7 @@ it("updates lock in tryUpdate", async () => {
   const lockDataNew = createLockData({ processHash: HASH1 });
 
   expect(
-    await db.tryUpdate(KEY1, lockDataNew, 10000, lockData.ownerHash)
+    await db.tryUpdate(KEY1, lockDataNew, 10000, lockData.ownerHash),
   ).toMatchObject({
     status: LockStatus.SUCCESS,
     lockData: lockDataNew,
@@ -49,7 +49,7 @@ it("doesn't override another process'es lock on creation", async () => {
   const lockData = createLockData({ processHash: HASH1 });
   await db.tryCreate(KEY1, lockData, 10000);
   expect(
-    await db.tryCreate(KEY1, createLockData({ processHash: HASH1 }), 10000)
+    await db.tryCreate(KEY1, createLockData({ processHash: HASH1 }), 10000),
   ).toMatchObject({
     status: LockStatus.SOMEONE_ELSE_HOLDS_LOCK,
     lockData,
@@ -61,7 +61,7 @@ it("doesn't override another process'es lock on update", async () => {
   await db.tryCreate(KEY1, lockData, 10000);
   const lockDataNew = createLockData({ processHash: HASH1 });
   expect(
-    await db.tryUpdate(KEY1, lockDataNew, 10000, lockDataNew.ownerHash)
+    await db.tryUpdate(KEY1, lockDataNew, 10000, lockDataNew.ownerHash),
   ).toMatchObject({
     status: LockStatus.SOMEONE_ELSE_HOLDS_LOCK,
     lockData,
@@ -71,7 +71,7 @@ it("doesn't override another process'es lock on update", async () => {
 it("doesn't update a non-existing lock", async () => {
   const lockData = createLockData({ processHash: HASH1 });
   expect(
-    await db.tryUpdate(KEY1, lockData, 10000, lockData.ownerHash)
+    await db.tryUpdate(KEY1, lockData, 10000, lockData.ownerHash),
   ).toMatchObject({
     status: LockStatus.NO_KEY,
     lockData: null,

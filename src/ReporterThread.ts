@@ -25,7 +25,7 @@ export default class ReporterThread {
         await database.saveProcessData(
           this._options.processHash,
           processData,
-          this._options.reportTtlMs
+          this._options.reportTtlMs,
         );
         onWrite(processData);
       } catch (e: unknown) {

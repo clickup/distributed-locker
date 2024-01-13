@@ -1,7 +1,7 @@
 {
   "name": "@clickup/distributed-locker",
   "description": "Ensures that some long-running job with an unique key is not double scheduled in the cluster.",
-  "version": "2.10.292",
+  "version": "2.10.296",
   "license": "MIT",
   "keywords": [
     "distributed-locker",
@@ -23,17 +23,19 @@
     "exclusive locks",
     "redlock"
   ],
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": "./dist/index.js",
   "scripts": {
     "build": "tsc",
-    "dev": "tsc --watch",
+    "dev": "tsc --watch --preserveWatchOutput",
     "lint": "eslint . --ext .ts --cache --cache-location dist/.eslintcache",
     "test": "jest",
     "docs": "rm -rf docs && typedoc --plugin typedoc-plugin-markdown --plugin typedoc-plugin-merge-modules && sed -i '' -E 's#packages/[^/]+/##g' $(find docs -type f -name '*.md')",
-    "clean": "rm -rf dist node_modules yarn.lock package-lock.json",
+    "clean": "rm -rf dist node_modules yarn.lock package-lock.json pnpm-lock.yaml *.log",
     "copy-package-to-public-dir": "copy-package-to-public-dir.sh",
-    "deploy": "npm run build && npm test && npm publish --access=public"
+    "backport-package-from-public-dir": "backport-package-from-public-dir.sh",
+    "deploy": "npm run build && npm run lint && npm run test && npm publish --access=public"
   },
   "dependencies": {
     "delay": "^4.4.1",
@@ -45,11 +47,27 @@
   "devDependencies": {
     "@types/jest": "^29.5.5",
     "@types/lodash": "^4.14.175",
+    "@types/node": "^20.4.1",
+    "@typescript-eslint/eslint-plugin": "^5.59.6",
+    "@typescript-eslint/parser": "^5.59.6",
+    "eslint-import-resolver-typescript": "^3.5.5",
+    "eslint-plugin-import": "^2.27.5",
+    "eslint-plugin-lodash": "^7.4.0",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint-plugin-react": "^7.32.2",
+    "eslint-plugin-typescript-enum": "^2.1.0",
+    "eslint-plugin-typescript-sort-keys": "^2.3.0",
+    "eslint-plugin-unused-imports": "^2.0.0",
+    "eslint": "^8.40.0",
+    "jest": "^29.7.0",
+    "prettier": "3.2.1",
     "ts-jest": "^29.1.1",
-    "typedoc": "^0.25.2",
     "typedoc-plugin-markdown": "^3.16.0",
     "typedoc-plugin-merge-modules": "^5.1.0",
-    "typescript": "^5.2.2"
+    "typedoc": "^0.25.2",
+    "typescript": "^5.2.2",
+    "wait-for-expect": "^3.0.2"
   },
   "repository": {
     "type": "git",

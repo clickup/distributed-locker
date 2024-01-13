@@ -1,6 +1,6 @@
 [@clickup/distributed-locker](../README.md) / [Exports](../modules.md) / Events
 
-# Class: Events<TArg\>
+# Class: Events\<TArg\>
 
 ## Type parameters
 
@@ -12,13 +12,17 @@
 
 ### constructor
 
-• **new Events**<`TArg`\>()
+• **new Events**\<`TArg`\>(): [`Events`](Events.md)\<`TArg`\>
 
 #### Type parameters
 
 | Name |
 | :------ |
 | `TArg` |
+
+#### Returns
+
+[`Events`](Events.md)\<`TArg`\>
 
 ## Methods
 
@@ -40,9 +44,6 @@ background. Returns a function to unsubscribe.
 `fn`
 
 ▸ (): `void`
-
-Adds an error subscriber which is called when an error is happened in the
-background. Returns a function to unsubscribe.
 
 ##### Returns
 

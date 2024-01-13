@@ -12,7 +12,7 @@
 
 ### constructor
 
-• **new LockError**(`key`, `ownerHash`, `lockData`)
+• **new LockError**(`key`, `ownerHash`, `lockData`): [`LockError`](LockError.md)
 
 #### Parameters
 
@@ -21,6 +21,10 @@
 | `key` | `string` |
 | `ownerHash` | `string` |
 | `lockData` | ``null`` \| [`LockData`](../interfaces/LockData.md) |
+
+#### Returns
+
+[`LockError`](LockError.md)
 
 #### Overrides
 

@@ -108,7 +108,7 @@ export default class Locker {
   async acquireAndRun<TRet>(
     key: string,
     func: (heartbeater: Heartbeater, ownerHash: string) => Promise<TRet>,
-    trace?: string
+    trace?: string,
   ): Promise<
     | {
         status: LockStatus.SUCCESS;
@@ -123,7 +123,7 @@ export default class Locker {
   > {
     if (func.length < 1) {
       throw Error(
-        "A callback passed to acquireAndRun() must accept at least 1 argument, a Heartbeater instance"
+        "A callback passed to acquireAndRun() must accept at least 1 argument, a Heartbeater instance",
       );
     }
 
@@ -136,12 +136,12 @@ export default class Locker {
       const result = await func(
         new Heartbeater(key)
           .withOnEvery(this._lockExtendMs, async () =>
-            this._doExtendLock(key, lockData.ownerHash, extend)
+            this._doExtendLock(key, lockData.ownerHash, extend),
           )
           .withOnEvery(this._lockRecheckMs, async () =>
-            this._doRecheckLock(key, lockData.ownerHash)
+            this._doRecheckLock(key, lockData.ownerHash),
           ),
-        lockData.ownerHash
+        lockData.ownerHash,
       );
       return { status: LockStatus.SUCCESS, result };
     } finally {
@@ -158,8 +158,8 @@ export default class Locker {
     key: string,
     timeoutMs: number,
     func: (heartbeater: Heartbeater) => Promise<TRet>,
-    recheckDelayMs = 100,
-    trace?: string
+    recheckDelay: () => Promise<unknown>,
+    trace?: string,
   ): Promise<TRet> {
     const timer = process.hrtime.bigint();
     let lastResult = undefined;
@@ -170,7 +170,7 @@ export default class Locker {
       }
 
       lastResult = result;
-      await delay(recheckDelayMs);
+      await recheckDelay();
     }
 
     throw new MutexError(key, lastResult.lockData);
@@ -244,18 +244,18 @@ export default class Locker {
     const { key } = parsed;
     const database = this._database();
 
-    const lockData = await database.readLockData(parsed.key);
+    const lockData = await database.readLockData(key);
     if (!lockData) {
       return { status: OwnerHashStatus.NO_KEY, lockData: null, key };
-    }
-
-    if (lockData.ownerHash !== ownerHash) {
-      return { status: OwnerHashStatus.SOMEONE_ELSE_HOLDS_LOCK, lockData, key };
     }
 
     const processData = await database.readProcessData(lockData.processHash);
     if (!processData) {
       return { status: OwnerHashStatus.NO_RUNNING_PROCESS, lockData, key };
+    }
+
+    if (lockData.ownerHash !== ownerHash) {
+      return { status: OwnerHashStatus.SOMEONE_ELSE_HOLDS_LOCK, lockData, key };
     }
 
     return { status: OwnerHashStatus.RUNNING, lockData, key };
@@ -291,7 +291,7 @@ export default class Locker {
    */
   async acquire(
     key: string,
-    trace?: string
+    trace?: string,
   ): Promise<
     | {
         status: LockStatus.SUCCESS;
@@ -314,7 +314,7 @@ export default class Locker {
         reportTtlMs: this._reportTtlMs,
       });
       this._reporterInstance.errors.subscribe((error) =>
-        this.errors.emit({ type: "reporter", error })
+        this.errors.emit({ type: "reporter", error }),
       );
     }
 
@@ -322,7 +322,7 @@ export default class Locker {
       this._reporterInstance.ensureRunning(),
       this._options.reporterWorkerSpawnTimeoutMs ??
         DEFAULT_REPORTER_WORKER_SPAWN_TIMEOUT_MS,
-      "Timed out waiting for ReporterThread worker to write aliveness info to the database"
+      "Timed out waiting for ReporterThread worker to write aliveness info to the database",
     );
 
     const lockData = database.createLockData({
@@ -340,7 +340,7 @@ export default class Locker {
       // Someone else is probably holding this lock. Checking whether they're
       // alive still somewhere...
       const processData = await database.readProcessData(
-        result.lockData.processHash
+        result.lockData.processHash,
       );
       if (!processData) {
         // They are not alive, so deleting their lock and retrying.
@@ -357,7 +357,7 @@ export default class Locker {
               key,
               { ...result.lockData, extendedAt: new Date().toJSON() },
               this._lockTtlMs,
-              result.lockData.ownerHash
+              result.lockData.ownerHash,
             ),
         }
       : result;
@@ -370,7 +370,7 @@ export default class Locker {
    */
   async release(
     key: string,
-    lockData: LockData
+    lockData: LockData,
   ): Promise<
     | { status: LockStatus.SUCCESS; lockData: null }
     | { status: LockStatus.NO_KEY; lockData: null }
@@ -418,7 +418,7 @@ export default class Locker {
   private async _doExtendLock(
     key: string,
     ownerHash: string,
-    extend: Extend
+    extend: Extend,
   ): Promise<void> {
     const { status, lockData } = await extend();
     if (status !== LockStatus.SUCCESS) {
@@ -436,7 +436,7 @@ export default class Locker {
     if (!this._databaseInstance) {
       this._databaseInstance = Database.load(this._options.database);
       this._databaseInstance.errors.subscribe((error) =>
-        this.errors.emit({ type: "locker", error })
+        this.errors.emit({ type: "locker", error }),
       );
     }
 
