@@ -1,4 +1,4 @@
-import delay from "delay";
+import waitForExpect from "wait-for-expect";
 import { db } from "../databases/__tests__";
 import Reporter from "../Reporter";
 
@@ -18,7 +18,7 @@ beforeEach(async () => {
       exportName: "db",
     },
     processHash: HASH1,
-    reportWriteMs: 1000,
+    reportWriteMs: 100,
     reportTtlMs: 3000,
   });
   // eslint-disable-next-line no-console
@@ -31,14 +31,18 @@ afterEach(async () => {
 });
 
 it("writes to the database regularly", async () => {
-  await delay(2000);
   const processData = await db.readProcessData(HASH1);
   expect(processData).not.toBeNull();
-  await delay(1100);
-  expect(await db.readProcessData(HASH1)).not.toEqual(processData);
+
+  await waitForExpect(async () =>
+    expect(await db.readProcessData(HASH1)).not.toEqual(processData),
+  );
+
   await reporter.terminate();
-  await delay(3100);
-  expect(await db.readProcessData(HASH1)).toBeNull();
+
+  await waitForExpect(async () =>
+    expect(await db.readProcessData(HASH1)).toBeNull(),
+  );
 });
 
 it("delivers errors", async () => {
@@ -55,8 +59,7 @@ it("delivers errors", async () => {
   reporter.errors.subscribe((e) => errors.push(e));
   reporter.ensureRunning().catch(() => {});
   try {
-    await delay(2000);
-    expect(errors).not.toEqual([]);
+    await waitForExpect(async () => expect(errors).not.toEqual([]));
     expect(errors.some((e) => e.includes("MaxRetriesPerRequestError")));
   } finally {
     await reporter.terminate();

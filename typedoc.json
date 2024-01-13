@@ -1,6 +1,6 @@
 {
   "entryPoints": ["src/index.ts"],
-  "exclude": ["src/__tests__/**", "**/node_modules/**"],
+  "exclude": ["**/internal/**", "**/__tests__/**", "**/node_modules/**"],
   "mergeModulesMergeMode": "project",
   "sort": ["required-first"],
   "out": "docs",

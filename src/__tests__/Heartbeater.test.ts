@@ -1,6 +1,7 @@
-import delay from "delay";
 import range from "lodash/range";
 import Heartbeater from "../Heartbeater";
+
+jest.useFakeTimers();
 
 it("should coalesce bursts of calls inside heartbeat()", async () => {
   let count = 0;
@@ -8,11 +9,13 @@ it("should coalesce bursts of calls inside heartbeat()", async () => {
     count++;
   });
 
-  await delay(50);
+  jest.advanceTimersByTime(50);
+
   await Promise.all(range(100).map(async () => heartbeater.heartbeat()));
   expect(count).toBe(1);
 
-  await delay(50);
+  jest.advanceTimersByTime(50);
+
   await Promise.all(range(100).map(async () => heartbeater.heartbeat()));
   expect(count).toBe(2);
 });

@@ -7,7 +7,7 @@ import LockStatus from "../LockStatus";
 import OwnerHashStatus from "../OwnerHashStatus";
 
 const REPORT_TTL_MS = 10000;
-const LOCK_TTL_MS = 3000;
+const LOCK_TTL_MS = 6000;
 
 let locker1: Locker;
 let locker2: Locker;
@@ -29,7 +29,7 @@ beforeEach(() => {
         lockRecheckMs: 100,
         lockExtendMs: LOCK_TTL_MS / 3,
         lockTtlMs: LOCK_TTL_MS,
-      })
+      }),
   );
 });
 
@@ -44,7 +44,7 @@ it("acquires and releases lock", async () => {
     status: LockStatus.SUCCESS,
   });
   expect(
-    await locker1.readOwnerHashStatus(res.lockData.ownerHash)
+    await locker1.readOwnerHashStatus(res.lockData.ownerHash),
   ).toMatchObject({
     status: OwnerHashStatus.RUNNING,
   });
@@ -57,7 +57,7 @@ it("acquires and releases lock", async () => {
     status: LockStatus.SUCCESS,
   });
   expect(
-    await locker2.readOwnerHashStatus(res.lockData.ownerHash)
+    await locker2.readOwnerHashStatus(res.lockData.ownerHash),
   ).toMatchObject({
     status: OwnerHashStatus.NO_KEY,
   });
@@ -104,7 +104,7 @@ it("acquires lock when other owner process dies suddenly", async () => {
     status: LockStatus.SUCCESS,
   });
   expect(
-    await locker1.readOwnerHashStatus(res.lockData.ownerHash)
+    await locker1.readOwnerHashStatus(res.lockData.ownerHash),
   ).toMatchObject({
     status: OwnerHashStatus.SOMEONE_ELSE_HOLDS_LOCK,
   });
@@ -115,7 +115,7 @@ it("expires the lock if not extended for a long time", async () => {
   await delay(LOCK_TTL_MS + 300);
   expect(await locker2.readLockData(KEY1)).toEqual("maybe_unlocked");
   expect(
-    await locker1.readOwnerHashStatus(res.lockData.ownerHash)
+    await locker1.readOwnerHashStatus(res.lockData.ownerHash),
   ).toMatchObject({
     status: OwnerHashStatus.NO_KEY,
   });
@@ -164,7 +164,7 @@ it("correctly works in acquireAndRun", async () => {
         await delay(100);
         await heartbeater.heartbeat();
       }
-    }
+    },
   );
 
   await acquired.promise;
@@ -271,10 +271,10 @@ it.each([[1], [2]])(
             count--;
             expect(count).toEqual(0);
           },
-          10
+          async () => delay(10),
         );
-      })
+      }),
     );
     expect(count).toEqual(0);
-  }
+  },
 );

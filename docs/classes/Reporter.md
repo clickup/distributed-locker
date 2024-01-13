@@ -13,13 +13,17 @@ results into a pretty quick locks re-acquisition by other processes.
 
 ### constructor
 
-• **new Reporter**(`_options`)
+• **new Reporter**(`_options`): [`Reporter`](Reporter.md)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
 | `_options` | [`ReporterOptions`](../interfaces/ReporterOptions.md) |
+
+#### Returns
+
+[`Reporter`](Reporter.md)
 
 #### Defined in
 
@@ -29,7 +33,7 @@ results into a pretty quick locks re-acquisition by other processes.
 
 ### errors
 
-• `Readonly` **errors**: [`Events`](Events.md)<`string`\>
+• `Readonly` **errors**: [`Events`](Events.md)\<`string`\>
 
 Allows to subscribe to recoverable errors happened in this Reporter.
 
@@ -57,7 +61,7 @@ ___
 
 ### ensureRunning
 
-▸ **ensureRunning**(): `Promise`<`void`\>
+▸ **ensureRunning**(): `Promise`\<`void`\>
 
 Makes sure the reporter background thread is started. Resolves as soon as
 it successfully writes aliveness data to the database. Since the thread
@@ -66,7 +70,7 @@ doesn't have a timeout to resolve.
 
 #### Returns
 
-`Promise`<`void`\>
+`Promise`\<`void`\>
 
 #### Defined in
 
@@ -76,13 +80,13 @@ ___
 
 ### terminate
 
-▸ **terminate**(): `Promise`<`void`\>
+▸ **terminate**(): `Promise`\<`void`\>
 
 Terminates the reporter background thread.
 
 #### Returns
 
-`Promise`<`void`\>
+`Promise`\<`void`\>
 
 #### Defined in
 

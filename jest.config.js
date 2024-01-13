@@ -2,11 +2,13 @@
 module.exports = {
   roots: ["<rootDir>/src"],
   testMatch: ["**/*.test.ts"],
-  testTimeout: 120000,
   clearMocks: true,
   restoreMocks: true,
-  forceExit: true,
+  ...(process.env.IN_JEST_PROJECT ? {} : { forceExit: true }),
   transform: {
     "\\.ts$": "ts-jest",
   },
+  ...(process.env["IN_JEST_PROJECT"]
+    ? {}
+    : { testTimeout: 120000, forceExit: true }),
 };

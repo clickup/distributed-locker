@@ -16,13 +16,17 @@ be configured exactly the same way.
 
 ### constructor
 
-• **new RedisDatabase**(`redis`)
+• **new RedisDatabase**(`redis`): [`RedisDatabase`](RedisDatabase.md)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
 | `redis` | `Redis` \| `Cluster` |
+
+#### Returns
+
+[`RedisDatabase`](RedisDatabase.md)
 
 #### Overrides
 
@@ -36,7 +40,7 @@ be configured exactly the same way.
 
 ### errors
 
-• `Readonly` **errors**: [`Events`](Events.md)<`unknown`\>
+• `Readonly` **errors**: [`Events`](Events.md)\<`unknown`\>
 
 Allows to subscribe to recoverable database errors.
 
@@ -52,7 +56,7 @@ Allows to subscribe to recoverable database errors.
 
 ### load
 
-▸ `Static` **load**(`«destructured»`): [`Database`](Database.md)
+▸ **load**(`«destructured»`): [`Database`](Database.md)
 
 Dynamically loads a Database object from some file. This is needed, because
 we instantiate the database in a background thread where we can't pass
@@ -85,7 +89,7 @@ ___
 
 ### readLockData
 
-▸ **readLockData**(`key`): `Promise`<``null`` \| [`LockData`](../interfaces/LockData.md)\>
+▸ **readLockData**(`key`): `Promise`\<``null`` \| [`LockData`](../interfaces/LockData.md)\>
 
 Reads the data associated with some lock key.
 
@@ -97,7 +101,7 @@ Reads the data associated with some lock key.
 
 #### Returns
 
-`Promise`<``null`` \| [`LockData`](../interfaces/LockData.md)\>
+`Promise`\<``null`` \| [`LockData`](../interfaces/LockData.md)\>
 
 #### Overrides
 
@@ -111,7 +115,7 @@ ___
 
 ### tryCreate
 
-▸ **tryCreate**(`key`, `lockDataIn`, `ttlMs`): `Promise`<{ `status`: [`SUCCESS`](../enums/LockStatus.md#success) ; `lockData`: [`LockData`](../interfaces/LockData.md)  } \| { `status`: [`SOMEONE_ELSE_HOLDS_LOCK`](../enums/LockStatus.md#someone_else_holds_lock) ; `lockData`: [`LockData`](../interfaces/LockData.md)  }\>
+▸ **tryCreate**(`key`, `lockDataIn`, `ttlMs`): `Promise`\<\{ `status`: [`SUCCESS`](../enums/LockStatus.md#success) ; `lockData`: [`LockData`](../interfaces/LockData.md)  } \| \{ `status`: [`SOMEONE_ELSE_HOLDS_LOCK`](../enums/LockStatus.md#someone_else_holds_lock) ; `lockData`: [`LockData`](../interfaces/LockData.md)  }\>
 
 Writes the lock data to a lock with the provided key, but only if this lock
 key doesn't exist yet.
@@ -126,7 +130,7 @@ key doesn't exist yet.
 
 #### Returns
 
-`Promise`<{ `status`: [`SUCCESS`](../enums/LockStatus.md#success) ; `lockData`: [`LockData`](../interfaces/LockData.md)  } \| { `status`: [`SOMEONE_ELSE_HOLDS_LOCK`](../enums/LockStatus.md#someone_else_holds_lock) ; `lockData`: [`LockData`](../interfaces/LockData.md)  }\>
+`Promise`\<\{ `status`: [`SUCCESS`](../enums/LockStatus.md#success) ; `lockData`: [`LockData`](../interfaces/LockData.md)  } \| \{ `status`: [`SOMEONE_ELSE_HOLDS_LOCK`](../enums/LockStatus.md#someone_else_holds_lock) ; `lockData`: [`LockData`](../interfaces/LockData.md)  }\>
 
 #### Overrides
 
@@ -140,7 +144,7 @@ ___
 
 ### tryUpdate
 
-▸ **tryUpdate**(`key`, `lockDataIn`, `ttlMs`, `onlyIfOwnerHashEq`): `Promise`<{ `status`: [`SUCCESS`](../enums/LockStatus.md#success) ; `lockData`: [`LockData`](../interfaces/LockData.md)  } \| { `status`: [`NO_KEY`](../enums/LockStatus.md#no_key) ; `lockData`: ``null``  } \| { `status`: [`SOMEONE_ELSE_HOLDS_LOCK`](../enums/LockStatus.md#someone_else_holds_lock) ; `lockData`: [`LockData`](../interfaces/LockData.md)  }\>
+▸ **tryUpdate**(`key`, `lockDataIn`, `ttlMs`, `onlyIfOwnerHashEq`): `Promise`\<\{ `status`: [`SUCCESS`](../enums/LockStatus.md#success) ; `lockData`: [`LockData`](../interfaces/LockData.md)  } \| \{ `status`: [`NO_KEY`](../enums/LockStatus.md#no_key) ; `lockData`: ``null``  } \| \{ `status`: [`SOMEONE_ELSE_HOLDS_LOCK`](../enums/LockStatus.md#someone_else_holds_lock) ; `lockData`: [`LockData`](../interfaces/LockData.md)  }\>
 
 Writes the lock data to a lock with the provided key, but only if this lock
 key exists, and its ownerHash is equal to the provided one.
@@ -156,7 +160,7 @@ key exists, and its ownerHash is equal to the provided one.
 
 #### Returns
 
-`Promise`<{ `status`: [`SUCCESS`](../enums/LockStatus.md#success) ; `lockData`: [`LockData`](../interfaces/LockData.md)  } \| { `status`: [`NO_KEY`](../enums/LockStatus.md#no_key) ; `lockData`: ``null``  } \| { `status`: [`SOMEONE_ELSE_HOLDS_LOCK`](../enums/LockStatus.md#someone_else_holds_lock) ; `lockData`: [`LockData`](../interfaces/LockData.md)  }\>
+`Promise`\<\{ `status`: [`SUCCESS`](../enums/LockStatus.md#success) ; `lockData`: [`LockData`](../interfaces/LockData.md)  } \| \{ `status`: [`NO_KEY`](../enums/LockStatus.md#no_key) ; `lockData`: ``null``  } \| \{ `status`: [`SOMEONE_ELSE_HOLDS_LOCK`](../enums/LockStatus.md#someone_else_holds_lock) ; `lockData`: [`LockData`](../interfaces/LockData.md)  }\>
 
 #### Overrides
 
@@ -170,7 +174,7 @@ ___
 
 ### tryDelete
 
-▸ **tryDelete**(`key`, `onlyIfOwnerHashEq`): `Promise`<{ `status`: [`SUCCESS`](../enums/LockStatus.md#success) ; `lockData`: ``null``  } \| { `status`: [`NO_KEY`](../enums/LockStatus.md#no_key) ; `lockData`: ``null``  } \| { `status`: [`SOMEONE_ELSE_HOLDS_LOCK`](../enums/LockStatus.md#someone_else_holds_lock) ; `lockData`: [`LockData`](../interfaces/LockData.md)  } \| { `retriableError`: `unknown`  }\>
+▸ **tryDelete**(`key`, `onlyIfOwnerHashEq`): `Promise`\<\{ `status`: [`SUCCESS`](../enums/LockStatus.md#success) ; `lockData`: ``null``  } \| \{ `status`: [`NO_KEY`](../enums/LockStatus.md#no_key) ; `lockData`: ``null``  } \| \{ `status`: [`SOMEONE_ELSE_HOLDS_LOCK`](../enums/LockStatus.md#someone_else_holds_lock) ; `lockData`: [`LockData`](../interfaces/LockData.md)  } \| \{ `retriableError`: `unknown`  }\>
 
 Deletes the lock with the provided key, but only if this lock key exists,
 and its ownerHash is equal to the provided one.
@@ -192,7 +196,7 @@ processes kick in; thus, we try hard to release the lock ASAP.
 
 #### Returns
 
-`Promise`<{ `status`: [`SUCCESS`](../enums/LockStatus.md#success) ; `lockData`: ``null``  } \| { `status`: [`NO_KEY`](../enums/LockStatus.md#no_key) ; `lockData`: ``null``  } \| { `status`: [`SOMEONE_ELSE_HOLDS_LOCK`](../enums/LockStatus.md#someone_else_holds_lock) ; `lockData`: [`LockData`](../interfaces/LockData.md)  } \| { `retriableError`: `unknown`  }\>
+`Promise`\<\{ `status`: [`SUCCESS`](../enums/LockStatus.md#success) ; `lockData`: ``null``  } \| \{ `status`: [`NO_KEY`](../enums/LockStatus.md#no_key) ; `lockData`: ``null``  } \| \{ `status`: [`SOMEONE_ELSE_HOLDS_LOCK`](../enums/LockStatus.md#someone_else_holds_lock) ; `lockData`: [`LockData`](../interfaces/LockData.md)  } \| \{ `retriableError`: `unknown`  }\>
 
 #### Overrides
 
@@ -206,7 +210,7 @@ ___
 
 ### readProcessData
 
-▸ **readProcessData**(`processHash`): `Promise`<``null`` \| [`ProcessData`](../interfaces/ProcessData.md)\>
+▸ **readProcessData**(`processHash`): `Promise`\<``null`` \| [`ProcessData`](../interfaces/ProcessData.md)\>
 
 Returns a process data associated to some alive process hash (or null if
 there is no alive process).
@@ -219,7 +223,7 @@ there is no alive process).
 
 #### Returns
 
-`Promise`<``null`` \| [`ProcessData`](../interfaces/ProcessData.md)\>
+`Promise`\<``null`` \| [`ProcessData`](../interfaces/ProcessData.md)\>
 
 #### Overrides
 
@@ -233,7 +237,7 @@ ___
 
 ### saveProcessData
 
-▸ **saveProcessData**(`processHash`, `processData`, `ttlMs`): `Promise`<`void`\>
+▸ **saveProcessData**(`processHash`, `processData`, `ttlMs`): `Promise`\<`void`\>
 
 Saves the process aliveness status & aux data.
 
@@ -247,7 +251,7 @@ Saves the process aliveness status & aux data.
 
 #### Returns
 
-`Promise`<`void`\>
+`Promise`\<`void`\>
 
 #### Overrides
 
@@ -261,13 +265,13 @@ ___
 
 ### terminate
 
-▸ **terminate**(): `Promise`<`void`\>
+▸ **terminate**(): `Promise`\<`void`\>
 
 Terminates the database connections.
 
 #### Returns
 
-`Promise`<`void`\>
+`Promise`\<`void`\>
 
 #### Overrides
 

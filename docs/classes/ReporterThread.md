@@ -6,13 +6,17 @@
 
 ### constructor
 
-• **new ReporterThread**(`_options`)
+• **new ReporterThread**(`_options`): [`ReporterThread`](ReporterThread.md)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
 | `_options` | [`ReporterThreadOptions`](../interfaces/ReporterThreadOptions.md) |
+
+#### Returns
+
+[`ReporterThread`](ReporterThread.md)
 
 #### Defined in
 
@@ -22,7 +26,7 @@
 
 ### errors
 
-• `Readonly` **errors**: [`Events`](Events.md)<`unknown`\>
+• `Readonly` **errors**: [`Events`](Events.md)\<`unknown`\>
 
 #### Defined in
 
@@ -32,7 +36,7 @@
 
 ### loop
 
-▸ **loop**(`onWrite`): `Promise`<`void`\>
+▸ **loop**(`onWrite`): `Promise`\<`void`\>
 
 #### Parameters
 
@@ -42,7 +46,7 @@
 
 #### Returns
 
-`Promise`<`void`\>
+`Promise`\<`void`\>
 
 #### Defined in
 

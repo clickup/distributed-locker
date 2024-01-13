@@ -12,7 +12,7 @@
 
 ### constructor
 
-• **new MutexError**(`key`, `lockData`)
+• **new MutexError**(`key`, `lockData`): [`MutexError`](MutexError.md)
 
 #### Parameters
 
@@ -20,6 +20,10 @@
 | :------ | :------ |
 | `key` | `string` |
 | `lockData` | [`LockData`](../interfaces/LockData.md) |
+
+#### Returns
+
+[`MutexError`](MutexError.md)
 
 #### Overrides
 
@@ -37,7 +41,7 @@ Error.constructor
 
 #### Defined in
 
-[src/MutexError.ts:4](https://github.com/clickup/distributed-locker/blob/master/src/MutexError.ts#L4)
+[src/MutexError.ts:5](https://github.com/clickup/distributed-locker/blob/master/src/MutexError.ts#L5)
 
 ___
 
@@ -47,4 +51,4 @@ ___
 
 #### Defined in
 
-[src/MutexError.ts:4](https://github.com/clickup/distributed-locker/blob/master/src/MutexError.ts#L4)
+[src/MutexError.ts:6](https://github.com/clickup/distributed-locker/blob/master/src/MutexError.ts#L6)

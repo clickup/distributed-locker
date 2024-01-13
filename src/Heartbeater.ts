@@ -15,7 +15,7 @@ export default class Heartbeater {
 
   constructor(
     private _name: string,
-    private _heartbeat: () => void | Promise<void> = () => {}
+    private _heartbeat: () => void | Promise<void> = () => {},
   ) {}
 
   /**
@@ -65,7 +65,7 @@ export default class Heartbeater {
 
       const nextQuantum = Math.min(
         DELAY_QUANTUM_MS * 1e6,
-        ms * 1e6 - Number(process.hrtime.bigint() - timer)
+        ms * 1e6 - Number(process.hrtime.bigint() - timer),
       );
       if (nextQuantum <= 0) {
         break;
@@ -93,7 +93,7 @@ export class DrainingSignal extends Error {
   constructor(name: string, reason: string | null) {
     super(
       `${name} aborted since the process is draining` +
-        (reason ? `: ${reason}` : "")
+        (reason ? `: ${reason}` : ""),
     );
     this.name = this.constructor.name;
   }

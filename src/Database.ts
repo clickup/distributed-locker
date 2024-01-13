@@ -75,7 +75,7 @@ export default abstract class Database {
   abstract tryCreate(
     key: string,
     lockData: LockData,
-    ttlMs: number
+    ttlMs: number,
   ): Promise<
     | { status: LockStatus.SUCCESS; lockData: LockData }
     | { status: LockStatus.SOMEONE_ELSE_HOLDS_LOCK; lockData: LockData }
@@ -89,7 +89,7 @@ export default abstract class Database {
     key: string,
     lockData: LockData,
     ttlMs: number,
-    onlyIfOwnerHashEq: string
+    onlyIfOwnerHashEq: string,
   ): Promise<
     | { status: LockStatus.SUCCESS; lockData: LockData }
     | { status: LockStatus.NO_KEY; lockData: null }
@@ -110,7 +110,7 @@ export default abstract class Database {
    */
   abstract tryDelete(
     key: string,
-    onlyIfOwnerHashEq: string
+    onlyIfOwnerHashEq: string,
   ): Promise<
     | { status: LockStatus.SUCCESS; lockData: null }
     | { status: LockStatus.NO_KEY; lockData: null }
@@ -130,7 +130,7 @@ export default abstract class Database {
   abstract saveProcessData(
     processHash: string,
     processData: ProcessData,
-    ttlMs: number
+    ttlMs: number,
   ): Promise<void>;
 
   /**
@@ -157,7 +157,7 @@ export default abstract class Database {
 
     throw Error(
       `Export property ${exportName} in ${moduleName} is not an instance of Database: ` +
-        inspect(database)
+        inspect(database),
     );
   }
 

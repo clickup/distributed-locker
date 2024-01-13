@@ -28,11 +28,11 @@ Main features:
 
 ```ts
 export const db = new RedisDatabase(
+  // You can also use Redis Cluster here.
   new Redis({
-    host: env.REDIS_QUEUE_HOST,
-    port: env.REDIS_QUEUE_PORT,
-    password: env.REDIS_QUEUE_PASS,
-    db: 0,
+    host: process.env.REDIS_WORKER_HOST,
+    port: process.env.REDIS_WORKER_PORT,
+    password: process.env.REDIS_WORKER_PASSWORD,
     keyPrefix: "locker:",
   })
 );
@@ -50,8 +50,8 @@ const res = await locker.acquireAndRun("job-key", async (heartbeat) => {
   while (shouldContinue()) {
     await doSomeWork();
     // 1. Reports that the job is still running to refresh the lock.
-    // 2. If someone takes over (e.g. a network blip or event loop blockage),
-    //    kills itself by throwing LockError exception.
+    // 2. If someone takes over (e.g. a network blip or event loop
+    //    blockage), kills itself by throwing LockError exception.
     await heartbeat();
   }
 });

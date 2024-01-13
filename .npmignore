@@ -1,9 +1,11 @@
-src
 __tests__
 .npmrc
+tsconfig.tsbuildinfo
+.github
 
 node_modules
 package-lock.json
+pnpm-lock.yaml
 yarn.lock
 .DS_Store
 *.log

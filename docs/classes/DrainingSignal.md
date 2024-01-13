@@ -15,7 +15,7 @@ some long running job.
 
 ### constructor
 
-• **new DrainingSignal**(`name`, `reason`)
+• **new DrainingSignal**(`name`, `reason`): [`DrainingSignal`](DrainingSignal.md)
 
 #### Parameters
 
@@ -23,6 +23,10 @@ some long running job.
 | :------ | :------ |
 | `name` | `string` |
 | `reason` | ``null`` \| `string` |
+
+#### Returns
+
+[`DrainingSignal`](DrainingSignal.md)
 
 #### Overrides
 

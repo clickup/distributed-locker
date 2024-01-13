@@ -18,13 +18,17 @@ Allows running "singleton jobs" in across multiple machines. Main features:
 
 ### constructor
 
-• **new Locker**(`_options`)
+• **new Locker**(`_options`): [`Locker`](Locker.md)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
 | `_options` | [`LockerOptions`](../interfaces/LockerOptions.md) |
+
+#### Returns
+
+[`Locker`](Locker.md)
 
 #### Defined in
 
@@ -34,7 +38,7 @@ Allows running "singleton jobs" in across multiple machines. Main features:
 
 ### errors
 
-• `Readonly` **errors**: [`Events`](Events.md)<{ `type`: ``"reporter"`` \| ``"locker"`` \| ``"lost_lock"`` ; `error`: `unknown`  }\>
+• `Readonly` **errors**: [`Events`](Events.md)\<\{ `type`: ``"reporter"`` \| ``"locker"`` \| ``"lost_lock"`` ; `error`: `unknown`  }\>
 
 If we experience a temporary (recoverable) error and don't want to abort,
 this property allows to subscribe to such errors.
@@ -47,7 +51,7 @@ this property allows to subscribe to such errors.
 
 ### acquireAndRun
 
-▸ **acquireAndRun**<`TRet`\>(`key`, `func`, `trace?`): `Promise`<{ `status`: [`SUCCESS`](../enums/LockStatus.md#success) ; `result`: `TRet` ; `lockData?`: `undefined`  } \| { `status`: [`SOMEONE_ELSE_HOLDS_LOCK`](../enums/LockStatus.md#someone_else_holds_lock) ; `lockData`: [`LockData`](../interfaces/LockData.md) ; `result?`: `undefined`  }\>
+▸ **acquireAndRun**\<`TRet`\>(`key`, `func`, `trace?`): `Promise`\<\{ `status`: [`SUCCESS`](../enums/LockStatus.md#success) ; `result`: `TRet` ; `lockData?`: `undefined`  } \| \{ `status`: [`SOMEONE_ELSE_HOLDS_LOCK`](../enums/LockStatus.md#someone_else_holds_lock) ; `lockData`: [`LockData`](../interfaces/LockData.md) ; `result?`: `undefined`  }\>
 
 Tries to acquire a lock and, if successful, runs the provided function with
 (heartbeater, ownerHash) arguments.
@@ -76,12 +80,12 @@ LockData structure and become a part of ownerHash.
 | Name | Type |
 | :------ | :------ |
 | `key` | `string` |
-| `func` | (`heartbeater`: [`Heartbeater`](Heartbeater.md), `ownerHash`: `string`) => `Promise`<`TRet`\> |
+| `func` | (`heartbeater`: [`Heartbeater`](Heartbeater.md), `ownerHash`: `string`) => `Promise`\<`TRet`\> |
 | `trace?` | `string` |
 
 #### Returns
 
-`Promise`<{ `status`: [`SUCCESS`](../enums/LockStatus.md#success) ; `result`: `TRet` ; `lockData?`: `undefined`  } \| { `status`: [`SOMEONE_ELSE_HOLDS_LOCK`](../enums/LockStatus.md#someone_else_holds_lock) ; `lockData`: [`LockData`](../interfaces/LockData.md) ; `result?`: `undefined`  }\>
+`Promise`\<\{ `status`: [`SUCCESS`](../enums/LockStatus.md#success) ; `result`: `TRet` ; `lockData?`: `undefined`  } \| \{ `status`: [`SOMEONE_ELSE_HOLDS_LOCK`](../enums/LockStatus.md#someone_else_holds_lock) ; `lockData`: [`LockData`](../interfaces/LockData.md) ; `result?`: `undefined`  }\>
 
 #### Defined in
 
@@ -91,7 +95,7 @@ ___
 
 ### mutex
 
-▸ **mutex**<`TRet`\>(`key`, `timeoutMs`, `func`, `recheckDelayMs?`, `trace?`): `Promise`<`TRet`\>
+▸ **mutex**\<`TRet`\>(`key`, `timeoutMs`, `func`, `recheckDelay`, `trace?`): `Promise`\<`TRet`\>
 
 Runs a passed function in a globally exclusive mode. If the mutex is
 already held by someone, waits for recheckDelayMs and tries to re-acquire
@@ -105,17 +109,17 @@ until timeoutMs elapsed. Throws if the mutex couldn't be acquired.
 
 #### Parameters
 
-| Name | Type | Default value |
-| :------ | :------ | :------ |
-| `key` | `string` | `undefined` |
-| `timeoutMs` | `number` | `undefined` |
-| `func` | (`heartbeater`: [`Heartbeater`](Heartbeater.md)) => `Promise`<`TRet`\> | `undefined` |
-| `recheckDelayMs` | `number` | `100` |
-| `trace?` | `string` | `undefined` |
+| Name | Type |
+| :------ | :------ |
+| `key` | `string` |
+| `timeoutMs` | `number` |
+| `func` | (`heartbeater`: [`Heartbeater`](Heartbeater.md)) => `Promise`\<`TRet`\> |
+| `recheckDelay` | () => `Promise`\<`unknown`\> |
+| `trace?` | `string` |
 
 #### Returns
 
-`Promise`<`TRet`\>
+`Promise`\<`TRet`\>
 
 #### Defined in
 
@@ -125,7 +129,7 @@ ___
 
 ### readLockData
 
-▸ **readLockData**(`key`): `Promise`<[`LockData`](../interfaces/LockData.md) \| ``"maybe_unlocked"``\>
+▸ **readLockData**(`key`): `Promise`\<[`LockData`](../interfaces/LockData.md) \| ``"maybe_unlocked"``\>
 
 Checks that the lock is currently held by some active process somewhere.
 Notice that this method is probabilistic:
@@ -141,7 +145,7 @@ Notice that this method is probabilistic:
 
 #### Returns
 
-`Promise`<[`LockData`](../interfaces/LockData.md) \| ``"maybe_unlocked"``\>
+`Promise`\<[`LockData`](../interfaces/LockData.md) \| ``"maybe_unlocked"``\>
 
 #### Defined in
 
@@ -151,7 +155,7 @@ ___
 
 ### readOwnerHashStatus
 
-▸ **readOwnerHashStatus**(`ownerHash`): `Promise`<{ `status`: [`RUNNING`](../enums/OwnerHashStatus.md#running) ; `lockData`: [`LockData`](../interfaces/LockData.md) ; `key`: `string`  } \| { `status`: [`SOMEONE_ELSE_HOLDS_LOCK`](../enums/OwnerHashStatus.md#someone_else_holds_lock) ; `lockData`: [`LockData`](../interfaces/LockData.md) ; `key`: `string`  } \| { `status`: [`NO_KEY`](../enums/OwnerHashStatus.md#no_key) ; `lockData`: ``null`` ; `key`: `string`  } \| { `status`: [`NO_RUNNING_PROCESS`](../enums/OwnerHashStatus.md#no_running_process) ; `lockData`: [`LockData`](../interfaces/LockData.md) ; `key`: `string`  } \| { `status`: [`MALFORMED_OWNER_HASH`](../enums/OwnerHashStatus.md#malformed_owner_hash) ; `lockData`: ``null`` ; `key`: ``null``  }\>
+▸ **readOwnerHashStatus**(`ownerHash`): `Promise`\<\{ `status`: [`RUNNING`](../enums/OwnerHashStatus.md#running) ; `lockData`: [`LockData`](../interfaces/LockData.md) ; `key`: `string`  } \| \{ `status`: [`SOMEONE_ELSE_HOLDS_LOCK`](../enums/OwnerHashStatus.md#someone_else_holds_lock) ; `lockData`: [`LockData`](../interfaces/LockData.md) ; `key`: `string`  } \| \{ `status`: [`NO_KEY`](../enums/OwnerHashStatus.md#no_key) ; `lockData`: ``null`` ; `key`: `string`  } \| \{ `status`: [`NO_RUNNING_PROCESS`](../enums/OwnerHashStatus.md#no_running_process) ; `lockData`: [`LockData`](../interfaces/LockData.md) ; `key`: `string`  } \| \{ `status`: [`MALFORMED_OWNER_HASH`](../enums/OwnerHashStatus.md#malformed_owner_hash) ; `lockData`: ``null`` ; `key`: ``null``  }\>
 
 For a given owner hash, checks whether the exact corresponding coroutine is
 running somewhere.
@@ -170,7 +174,7 @@ between you called this method and the actual finish.
 
 #### Returns
 
-`Promise`<{ `status`: [`RUNNING`](../enums/OwnerHashStatus.md#running) ; `lockData`: [`LockData`](../interfaces/LockData.md) ; `key`: `string`  } \| { `status`: [`SOMEONE_ELSE_HOLDS_LOCK`](../enums/OwnerHashStatus.md#someone_else_holds_lock) ; `lockData`: [`LockData`](../interfaces/LockData.md) ; `key`: `string`  } \| { `status`: [`NO_KEY`](../enums/OwnerHashStatus.md#no_key) ; `lockData`: ``null`` ; `key`: `string`  } \| { `status`: [`NO_RUNNING_PROCESS`](../enums/OwnerHashStatus.md#no_running_process) ; `lockData`: [`LockData`](../interfaces/LockData.md) ; `key`: `string`  } \| { `status`: [`MALFORMED_OWNER_HASH`](../enums/OwnerHashStatus.md#malformed_owner_hash) ; `lockData`: ``null`` ; `key`: ``null``  }\>
+`Promise`\<\{ `status`: [`RUNNING`](../enums/OwnerHashStatus.md#running) ; `lockData`: [`LockData`](../interfaces/LockData.md) ; `key`: `string`  } \| \{ `status`: [`SOMEONE_ELSE_HOLDS_LOCK`](../enums/OwnerHashStatus.md#someone_else_holds_lock) ; `lockData`: [`LockData`](../interfaces/LockData.md) ; `key`: `string`  } \| \{ `status`: [`NO_KEY`](../enums/OwnerHashStatus.md#no_key) ; `lockData`: ``null`` ; `key`: `string`  } \| \{ `status`: [`NO_RUNNING_PROCESS`](../enums/OwnerHashStatus.md#no_running_process) ; `lockData`: [`LockData`](../interfaces/LockData.md) ; `key`: `string`  } \| \{ `status`: [`MALFORMED_OWNER_HASH`](../enums/OwnerHashStatus.md#malformed_owner_hash) ; `lockData`: ``null`` ; `key`: ``null``  }\>
 
 #### Defined in
 
@@ -180,13 +184,13 @@ ___
 
 ### terminate
 
-▸ **terminate**(): `Promise`<`void`\>
+▸ **terminate**(): `Promise`\<`void`\>
 
 Destroys the instance. It can't be used after the destruction.
 
 #### Returns
 
-`Promise`<`void`\>
+`Promise`\<`void`\>
 
 #### Defined in
 
@@ -196,7 +200,7 @@ ___
 
 ### acquire
 
-▸ **acquire**(`key`, `trace?`): `Promise`<{ `status`: [`SUCCESS`](../enums/LockStatus.md#success) ; `lockData`: [`LockData`](../interfaces/LockData.md) ; `extend`: [`Extend`](../interfaces/Extend.md)  } \| { `status`: [`SOMEONE_ELSE_HOLDS_LOCK`](../enums/LockStatus.md#someone_else_holds_lock) ; `lockData`: [`LockData`](../interfaces/LockData.md) ; `extend?`: `undefined`  }\>
+▸ **acquire**(`key`, `trace?`): `Promise`\<\{ `status`: [`SUCCESS`](../enums/LockStatus.md#success) ; `lockData`: [`LockData`](../interfaces/LockData.md) ; `extend`: [`Extend`](../interfaces/Extend.md)  } \| \{ `status`: [`SOMEONE_ELSE_HOLDS_LOCK`](../enums/LockStatus.md#someone_else_holds_lock) ; `lockData`: [`LockData`](../interfaces/LockData.md) ; `extend?`: `undefined`  }\>
 
 Note: a low-level API; try to use acquireAndRun() when possible.
 
@@ -223,7 +227,7 @@ LockData structure and become a part of ownerHash.
 
 #### Returns
 
-`Promise`<{ `status`: [`SUCCESS`](../enums/LockStatus.md#success) ; `lockData`: [`LockData`](../interfaces/LockData.md) ; `extend`: [`Extend`](../interfaces/Extend.md)  } \| { `status`: [`SOMEONE_ELSE_HOLDS_LOCK`](../enums/LockStatus.md#someone_else_holds_lock) ; `lockData`: [`LockData`](../interfaces/LockData.md) ; `extend?`: `undefined`  }\>
+`Promise`\<\{ `status`: [`SUCCESS`](../enums/LockStatus.md#success) ; `lockData`: [`LockData`](../interfaces/LockData.md) ; `extend`: [`Extend`](../interfaces/Extend.md)  } \| \{ `status`: [`SOMEONE_ELSE_HOLDS_LOCK`](../enums/LockStatus.md#someone_else_holds_lock) ; `lockData`: [`LockData`](../interfaces/LockData.md) ; `extend?`: `undefined`  }\>
 
 #### Defined in
 
@@ -233,7 +237,7 @@ ___
 
 ### release
 
-▸ **release**(`key`, `lockData`): `Promise`<{ `status`: [`SUCCESS`](../enums/LockStatus.md#success) ; `lockData`: ``null``  } \| { `status`: [`NO_KEY`](../enums/LockStatus.md#no_key) ; `lockData`: ``null``  } \| { `status`: [`SOMEONE_ELSE_HOLDS_LOCK`](../enums/LockStatus.md#someone_else_holds_lock) ; `lockData`: [`LockData`](../interfaces/LockData.md)  }\>
+▸ **release**(`key`, `lockData`): `Promise`\<\{ `status`: [`SUCCESS`](../enums/LockStatus.md#success) ; `lockData`: ``null``  } \| \{ `status`: [`NO_KEY`](../enums/LockStatus.md#no_key) ; `lockData`: ``null``  } \| \{ `status`: [`SOMEONE_ELSE_HOLDS_LOCK`](../enums/LockStatus.md#someone_else_holds_lock) ; `lockData`: [`LockData`](../interfaces/LockData.md)  }\>
 
 Note: a low-level API; try to use acquireAndRun() when possible.
 
@@ -248,7 +252,7 @@ Releases the lock acquired by the current process.
 
 #### Returns
 
-`Promise`<{ `status`: [`SUCCESS`](../enums/LockStatus.md#success) ; `lockData`: ``null``  } \| { `status`: [`NO_KEY`](../enums/LockStatus.md#no_key) ; `lockData`: ``null``  } \| { `status`: [`SOMEONE_ELSE_HOLDS_LOCK`](../enums/LockStatus.md#someone_else_holds_lock) ; `lockData`: [`LockData`](../interfaces/LockData.md)  }\>
+`Promise`\<\{ `status`: [`SUCCESS`](../enums/LockStatus.md#success) ; `lockData`: ``null``  } \| \{ `status`: [`NO_KEY`](../enums/LockStatus.md#no_key) ; `lockData`: ``null``  } \| \{ `status`: [`SOMEONE_ELSE_HOLDS_LOCK`](../enums/LockStatus.md#someone_else_holds_lock) ; `lockData`: [`LockData`](../interfaces/LockData.md)  }\>
 
 #### Defined in
 

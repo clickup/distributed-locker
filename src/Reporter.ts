@@ -123,20 +123,20 @@ if (
     postMessageToParent({
       type: MsgType.ERROR,
       error: inspect(error),
-    })
+    }),
   );
   thread
     .loop((processData) =>
       postMessageToParent({
         type: MsgType.WRITE,
         processData,
-      })
+      }),
     )
     .catch((error) =>
       postMessageToParent({
         type: MsgType.ERROR,
         error: inspect(error),
-      })
+      }),
     );
 }
 
