@@ -29,13 +29,13 @@
   "scripts": {
     "build": "tsc",
     "dev": "tsc --watch --preserveWatchOutput",
-    "lint": "eslint . --ext .ts --cache --cache-location dist/.eslintcache",
-    "test": "jest",
-    "docs": "rm -rf docs && typedoc --plugin typedoc-plugin-markdown --plugin typedoc-plugin-merge-modules && sed -i '' -E 's#packages/[^/]+/##g' $(find docs -type f -name '*.md')",
-    "clean": "rm -rf dist node_modules yarn.lock package-lock.json pnpm-lock.yaml *.log",
+    "lint": "bash internal/lint.sh",
+    "test": "REDISCLI_PORT=56879 bash internal/with-docker-compose-up.redis.sh jest",
+    "docs": "bash internal/docs.sh",
+    "clean": "bash internal/clean.sh",
     "copy-package-to-public-dir": "copy-package-to-public-dir.sh",
     "backport-package-from-public-dir": "backport-package-from-public-dir.sh",
-    "deploy": "npm run build && npm run lint && npm run test && npm publish --access=public"
+    "deploy": "bash internal/deploy.sh"
   },
   "dependencies": {
     "delay": "^4.4.1",

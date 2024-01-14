@@ -44,6 +44,19 @@ Locker, it looks like: "{hostname}/{pid}.{nanoseconds}".
 
 ___
 
+### trace
+
+• `Optional` **trace**: `string`
+
+The value passed in acquire() or acquireAndRun(), during the creation of
+LockData structure.
+
+#### Defined in
+
+[src/Database.ts:29](https://github.com/clickup/distributed-locker/blob/master/src/Database.ts#L29)
+
+___
+
 ### acquiredAt
 
 • **acquiredAt**: `string`
@@ -67,16 +80,3 @@ it relies on its processHash liveness as well.
 #### Defined in
 
 [src/Database.ts:35](https://github.com/clickup/distributed-locker/blob/master/src/Database.ts#L35)
-
-___
-
-### trace
-
-• `Optional` **trace**: `string`
-
-The value passed in acquire() or acquireAndRun(), during the creation of
-LockData structure.
-
-#### Defined in
-
-[src/Database.ts:29](https://github.com/clickup/distributed-locker/blob/master/src/Database.ts#L29)

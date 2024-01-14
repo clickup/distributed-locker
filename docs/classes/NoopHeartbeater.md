@@ -1,39 +1,42 @@
-[@clickup/distributed-locker](../README.md) / [Exports](../modules.md) / Heartbeater
+[@clickup/distributed-locker](../README.md) / [Exports](../modules.md) / NoopHeartbeater
 
-# Class: Heartbeater
+# Class: NoopHeartbeater
+
+A heartbeater instance for short-running processes.
 
 ## Hierarchy
 
-- **`Heartbeater`**
+- [`Heartbeater`](Heartbeater.md)
 
-  ↳ [`NoopHeartbeater`](NoopHeartbeater.md)
+  ↳ **`NoopHeartbeater`**
 
 ## Constructors
 
 ### constructor
 
-• **new Heartbeater**(`_name`, `_heartbeat?`): [`Heartbeater`](Heartbeater.md)
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `_name` | `string` |
-| `_heartbeat` | () => `void` \| `Promise`\<`void`\> |
+• **new NoopHeartbeater**(): [`NoopHeartbeater`](NoopHeartbeater.md)
 
 #### Returns
 
-[`Heartbeater`](Heartbeater.md)
+[`NoopHeartbeater`](NoopHeartbeater.md)
+
+#### Overrides
+
+[Heartbeater](Heartbeater.md).[constructor](Heartbeater.md#constructor-1)
 
 #### Defined in
 
-[src/Heartbeater.ts:16](https://github.com/clickup/distributed-locker/blob/master/src/Heartbeater.ts#L16)
+[src/Heartbeater.ts:83](https://github.com/clickup/distributed-locker/blob/master/src/Heartbeater.ts#L83)
 
 ## Properties
 
 ### constructor
 
 • **constructor**: typeof [`Heartbeater`](Heartbeater.md)
+
+#### Inherited from
+
+Heartbeater.constructor
 
 #### Defined in
 
@@ -57,6 +60,10 @@ immediately in this mode.
 #### Returns
 
 `void`
+
+#### Inherited from
+
+[Heartbeater](Heartbeater.md).[setDraining](Heartbeater.md#setdraining)
 
 #### Defined in
 
@@ -82,6 +89,10 @@ approximately (not more often) during a heartbeat.
 
 [`Heartbeater`](Heartbeater.md)
 
+#### Inherited from
+
+[Heartbeater](Heartbeater.md).[withOnEvery](Heartbeater.md#withonevery)
+
 #### Defined in
 
 [src/Heartbeater.ts:33](https://github.com/clickup/distributed-locker/blob/master/src/Heartbeater.ts#L33)
@@ -97,6 +108,10 @@ Runs a heartbeat.
 #### Returns
 
 `Promise`\<`void`\>
+
+#### Inherited from
+
+[Heartbeater](Heartbeater.md).[heartbeat](Heartbeater.md#heartbeat)
 
 #### Defined in
 
@@ -119,6 +134,10 @@ A helper function to sleep & heartbeat during the sleep.
 #### Returns
 
 `Promise`\<`void`\>
+
+#### Inherited from
+
+[Heartbeater](Heartbeater.md).[delay](Heartbeater.md#delay)
 
 #### Defined in
 

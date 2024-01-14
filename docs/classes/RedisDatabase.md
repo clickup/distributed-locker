@@ -87,6 +87,55 @@ to load this instance from a shared file (module).
 
 ___
 
+### createLockData
+
+▸ **createLockData**(`«destructured»`): [`LockData`](../interfaces/LockData.md)
+
+Creates a new LockData object.
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `«destructured»` | `Object` |
+| › `ownerHash` | `string` |
+| › `processHash` | `string` |
+| › `trace` | `undefined` \| `string` |
+
+#### Returns
+
+[`LockData`](../interfaces/LockData.md)
+
+#### Inherited from
+
+[Database](Database.md).[createLockData](Database.md#createlockdata)
+
+#### Defined in
+
+[src/Database.ts:167](https://github.com/clickup/distributed-locker/blob/master/src/Database.ts#L167)
+
+___
+
+### createProcessData
+
+▸ **createProcessData**(): [`ProcessData`](../interfaces/ProcessData.md)
+
+Creates a new ProcessData object. Called in Reporter thread.
+
+#### Returns
+
+[`ProcessData`](../interfaces/ProcessData.md)
+
+#### Inherited from
+
+[Database](Database.md).[createProcessData](Database.md#createprocessdata)
+
+#### Defined in
+
+[src/Database.ts:189](https://github.com/clickup/distributed-locker/blob/master/src/Database.ts#L189)
+
+___
+
 ### readLockData
 
 ▸ **readLockData**(`key`): `Promise`\<``null`` \| [`LockData`](../interfaces/LockData.md)\>
@@ -280,52 +329,3 @@ Terminates the database connections.
 #### Defined in
 
 [src/databases/RedisDatabase.ts:178](https://github.com/clickup/distributed-locker/blob/master/src/databases/RedisDatabase.ts#L178)
-
-___
-
-### createLockData
-
-▸ **createLockData**(`«destructured»`): [`LockData`](../interfaces/LockData.md)
-
-Creates a new LockData object.
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `«destructured»` | `Object` |
-| › `ownerHash` | `string` |
-| › `processHash` | `string` |
-| › `trace` | `undefined` \| `string` |
-
-#### Returns
-
-[`LockData`](../interfaces/LockData.md)
-
-#### Inherited from
-
-[Database](Database.md).[createLockData](Database.md#createlockdata)
-
-#### Defined in
-
-[src/Database.ts:167](https://github.com/clickup/distributed-locker/blob/master/src/Database.ts#L167)
-
-___
-
-### createProcessData
-
-▸ **createProcessData**(): [`ProcessData`](../interfaces/ProcessData.md)
-
-Creates a new ProcessData object. Called in Reporter thread.
-
-#### Returns
-
-[`ProcessData`](../interfaces/ProcessData.md)
-
-#### Inherited from
-
-[Database](Database.md).[createProcessData](Database.md#createprocessdata)
-
-#### Defined in
-
-[src/Database.ts:189](https://github.com/clickup/distributed-locker/blob/master/src/Database.ts#L189)
