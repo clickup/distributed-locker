@@ -2,6 +2,8 @@
 
 See also [Full API documentation](https://github.com/clickup/distributed-locker/blob/master/docs/modules.md).
 
+![CI run](https://github.com/clickup/distributed-locker/actions/workflows/ci.yml/badge.svg?branch=main)
+
 As opposed to the popular redlock algorithm, the library also tracks per-process
 liveness (in a separate Node thread), so the locks from a dead process are
 quickly reported as free to the rest of the cluster as soon as the process dies.
