@@ -9,23 +9,24 @@
 
 ## Classes
 
-- [Locker](classes/Locker.md)
-- [RedisDatabase](classes/RedisDatabase.md)
-- [LockError](classes/LockError.md)
-- [MutexError](classes/MutexError.md)
-- [Heartbeater](classes/Heartbeater.md)
-- [DrainingSignal](classes/DrainingSignal.md)
 - [Database](classes/Database.md)
 - [Events](classes/Events.md)
+- [Heartbeater](classes/Heartbeater.md)
+- [NoopHeartbeater](classes/NoopHeartbeater.md)
+- [DrainingSignal](classes/DrainingSignal.md)
+- [LockError](classes/LockError.md)
+- [Locker](classes/Locker.md)
+- [MutexError](classes/MutexError.md)
 - [Reporter](classes/Reporter.md)
 - [ReporterThread](classes/ReporterThread.md)
+- [RedisDatabase](classes/RedisDatabase.md)
 
 ## Interfaces
 
-- [LockerOptions](interfaces/LockerOptions.md)
 - [LockData](interfaces/LockData.md)
-- [Extend](interfaces/Extend.md)
-- [ReporterOptions](interfaces/ReporterOptions.md)
-- [ReporterThreadOptions](interfaces/ReporterThreadOptions.md)
 - [ProcessData](interfaces/ProcessData.md)
 - [DatabaseModule](interfaces/DatabaseModule.md)
+- [Extend](interfaces/Extend.md)
+- [LockerOptions](interfaces/LockerOptions.md)
+- [ReporterOptions](interfaces/ReporterOptions.md)
+- [ReporterThreadOptions](interfaces/ReporterThreadOptions.md)
